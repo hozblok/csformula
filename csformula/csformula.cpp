@@ -1,6 +1,11 @@
 #include "csformula.h"
 
-const std::map<std::string, mathFunctionTwoArgs> csformula::functionsTwoArgs = {{std::string("+"), _add},
+const std::map<std::string, mathFunctionTwoArgs> csformula::functionsTwoArgs = {{std::string("|"), _or},
+                                                                                {std::string("&"), _and},
+                                                                                {std::string("="), _eq},
+                                                                                {std::string(">"), _gt},
+                                                                                {std::string("<"), _lt},
+                                                                                {std::string("+"), _add},
                                                                                 {std::string("-"), _sub},
                                                                                 {std::string("/"), _truediv},
                                                                                 {std::string("*"), _mul},
@@ -63,13 +68,12 @@ void csformula::setExpression(const std::string &texpression)
     }
     boost::algorithm::to_lower(expression);
 
-    // remove spaces, \n, \r, \t, etc.
+    // remove spaces, tabs, \n, \r
     boost::algorithm::erase_all(expression, " ");
     boost::algorithm::erase_all(expression, "\n");
     boost::algorithm::erase_all(expression, "\r");
     boost::algorithm::erase_all(expression, "\t");
     boost::algorithm::erase_all(expression, "\v");
-    boost::algorithm::erase_all(expression, "\a");
 
     eval = new cseval(expression);
 }

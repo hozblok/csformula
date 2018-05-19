@@ -18,17 +18,17 @@ cseval::cseval(std::string expression):
         expression.pop_back();
     }
 
-    // find operations: addition, subtraction, multiplication, division, the construction of the power
+    // find operations: logical or, logical and, relational =, <, >, addition, subtraction, multiplication, division, the construction of the power
     // First, we are looking for addition and subtraction,
     // because division and multiplication have a higher priority
     // and should be performed first.
-    std::string operations("+-*/^");
+    std::string operations("|&=><+-*/^");
     std::unordered_map<char, int> foundedOperation = findSymbolsOutsideBrackets(expression, operations);
     for (std::string::const_iterator it = operations.cbegin(); it != operations.cend(); ++it) {
         if (foundedOperation.at(*it) != -1) {
             kind = 'f';
             id = *it;
-            if (*it== '-' || *it == '+') {
+            if (*it == '-' || *it == '+') {
                 // if '-' represents negative number or negative value of variable, not a subtraction operation
                 // similarly for '+'
                 if (foundedOperation.at(*it) == 0) {
