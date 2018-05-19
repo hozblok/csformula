@@ -29,6 +29,16 @@ private:
     static float100et _add(float100et a, float100et b) { return a + b; }
     // "-" - subtraction
     static float100et _sub(float100et a, float100et b) { return a - b; }
+    // "&" - and
+    static float100et _and(float100et a, float100et b) { return a != ZERO && b != ZERO ? ONE : ZERO; }
+    // "|" - or
+    static float100et _or(float100et a, float100et b) { return a != ZERO || b != ZERO ? ONE : ZERO; }
+    // "=" - is equal to
+    static float100et _eq(float100et a, float100et b) { return a == b ? ONE : ZERO; }
+    // "<"
+    static float100et _lt(float100et a, float100et b) { return a < b ? ONE : ZERO; }
+    // ">"
+    static float100et _gt(float100et a, float100et b) { return a > b ? ONE : ZERO; }
     // "/" - division
     static float100et _truediv(float100et a, float100et b) {
         if (b == ZERO) {
