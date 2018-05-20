@@ -92,5 +92,19 @@ int test_main (int, char *[ ]){
     std::map<std::string, float100et> map008 = {{"x", float100et("0")}};
     BOOST_CHECK(formula_008.getD("x", map008).str() == "14");
 
+    std::cout << "test 009: '-14 * (x < 0) + 14 * (x > 0) + 0.14 * (x = 0)'";
+    csformula formula_("-14 * (x < 0) + 14 * (x > 0) + 0.14 * (x = 0)");
+    BOOST_CHECK(formula_.get({{"x", float100et("0")}}).str() == "0.14");
+    BOOST_CHECK(formula_.get({{"x", float100et("-10")}}).str() == "-14");
+    BOOST_CHECK(formula_.get({{"x", float100et("0.000000000000000000000000000000000000001")}}).str() == "14");
+
+    std::cout << "test 010: '-14 * (x < 0) + 14 * (x > 0) + 0.14 * (x = 0)'";
+    csformula formula__("14 * (x & y) + 0.14 * (x | y) + 0.0014 * (x = y)");
+    BOOST_CHECK(formula__.get({{"x", float100et("0")},{"y", float100et("0")}}).str() == "0.0014");
+    BOOST_CHECK(formula__.get({{"x", float100et("14")},{"y", float100et("0")}}).str() == "0.14");
+    BOOST_CHECK(formula__.get({{"x", float100et("0")},{"y", float100et("14")}}).str() == "0.14");
+    BOOST_CHECK(formula__.get({{"x", float100et("14")},{"y", float100et("0.14")}}).str() == "14.14");
+    BOOST_CHECK(formula__.get({{"x", float100et("14")},{"y", float100et("14")}}).str() == "14.1414");
+
     return 0;
 }
