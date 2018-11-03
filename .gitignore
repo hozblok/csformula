@@ -1,5 +1,5 @@
 /build*
-/boost*
+/boost_*
 /CMakeFiles
 download
 CMakeLists.txt.user
